@@ -1,0 +1,80 @@
+using System;
+
+namespace Лаба_1
+{
+    internal class Program
+    {
+        static void Main(string[] args)
+        {
+            int numberOfTask = 0;
+            while (numberOfTask != -1)
+            {
+                Console.WriteLine("Введите номер задания: ");
+                numberOfTask = Convert.ToInt32(Console.ReadLine());
+                switch (numberOfTask)
+                {
+                    case 1: CreateOneDimensionalArray(); break;
+                    //case 2: CreateSquareArray(); break;
+                    //case 3: CreateFaggerArray(); break;
+                    default: numberOfTask = -1; break;
+                }
+            }
+        }
+
+        private static void ReadArrayAttributes(out int arraySize, out int minValue, out int maxValue)
+        //1. Одномерный массив целых чисел.
+        {
+            arraySize = 0;
+            Console.WriteLine("Введите размер массива: ");
+            arraySize = Convert.ToInt32(Console.ReadLine());
+
+            Console.WriteLine("Введите минимальное значение: ");
+            minValue = Convert.ToInt32(Console.ReadLine());
+
+            Console.WriteLine("Введите максимальное значение: ");
+            maxValue = Convert.ToInt32(Console.ReadLine());
+        }
+        private static void CreateOneDimensionalArray()
+
+        {
+            int arraySize, minValue, maxValue;
+            ReadArrayAttributes(out arraySize, out minValue, out maxValue);
+            int[] array = new int[arraySize];
+            Random random = new Random();
+
+            Console.WriteLine("Создание массива: ");
+            for (int i = 0; i < arraySize; i++)
+            {
+                array[i] = random.Next(minValue, maxValue + 1);
+                Console.Write("{0} \t", array[i]);
+            }
+            Console.WriteLine();
+            int numberOfSubTask = 0;
+            while (numberOfSubTask != -1)
+            {
+                Console.WriteLine("Введите номер подзадания в рамках первого задания: ");
+                numberOfSubTask = Convert.ToInt32(Console.ReadLine());
+                switch (numberOfSubTask)
+                {
+                    case 1: DetermineIfTheProductOfElementsIsAThreeDigitNumberl(array); break;
+                    //case 2: ReplaceAllMaxElementsByZero(minValue, array); break;
+                    default: numberOfSubTask = -1; break;
+                }
+            }
+        }
+        //16.	Определить, является ли произведение элементов трехзначным числом.
+
+        private static void DetermineIfTheProductOfElementsIsAThreeDigitNumberl(int[] array)
+        {
+            int[] numbers;
+            numbers = new int[array.Length];
+            int[] nums = new int[array.Length];
+            if (array.Length > 0)   
+            {
+                double result = Math.BigMul(nums[0],nums[+1]);
+
+                Console.WriteLine(result);
+            }
+        }
+    }
+}
