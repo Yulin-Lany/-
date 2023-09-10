@@ -1,0 +1,20 @@
+using MySqlConnector;
+using System.ComponentModel;
+using System.ComponentModel.DataAnnotations.Schema;
+using System.Runtime.CompilerServices;
+
+
+string server = "91.149.187.115";
+string userID = "ylin";
+string password = "Ulin123Lds_";
+string dbName = "ylin_db";
+
+string connectionString = "Server=" + server + ";Port=43251" + ";Database=" + dbName + ";Uid=" + userID + ";Pwd=" + password;
+using var connection = new MySqlConnection(connectionString);
+connection.Open();
+
+using var command = connection.CreateCommand();
+command.CommandText = "SELECT * from places";
+
+using var reader = command.ExecuteReader();
+while (reader.Read())
