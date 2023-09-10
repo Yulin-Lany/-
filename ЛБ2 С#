@@ -1,0 +1,112 @@
+using Microsoft.VisualBasic;
+using System.Text;
+using System.Text.RegularExpressions;
+using static System.Net.Mime.MediaTypeNames;
+
+namespace Лаб_2
+{
+    internal class Program
+    {
+        static void Main(string[] args)
+        {
+
+            int numberOfTask = 0;
+            while (numberOfTask != -1)
+            {
+                Console.WriteLine("Введите номер задания: ");
+                numberOfTask = Convert.ToInt32(Console.ReadLine());
+                switch (numberOfTask)
+                {
+                    case 1: TaskNamber1(); break;
+                    case 2: TaskNamber2(); break;
+                    case 3: TaskNamber3(); break;
+                    default: numberOfTask = -1; break;
+                }
+            }
+        }
+        static string stringreg(string str) //16.	удалить из строки последовательность символов, расположенных между круглыми скобками
+                                            //(считается, что в строке ровно одна пара круглых скобок).
+        {
+
+            Regex regex = new Regex(@"\(([^\)]*)\)");
+            return str = regex.Replace(str, @"");
+        }
+
+        private static void TaskNamber1() //Написать метод, который получает строку и возвращает результат. 
+        {
+            string str = "В раскрытое окно (выходившее в сторону сада) было видно дорогу, лес и реку.";
+            Console.WriteLine(str);
+            Console.WriteLine();
+            Console.WriteLine(stringreg(str));
+
+        }
+
+        static int Replace(out StringBuilder result, params StringBuilder[] str)
+        {
+            result = new StringBuilder();
+            foreach (StringBuilder s in str)
+            {
+                for (int i = 0; i < str.Length; i++)
+                {
+                    s.Replace('(', '[').Replace(')', ']');
+                }
+                result.Append(s + ";");
+            }
+            Console.WriteLine(result);
+            result.EnsureCapacity(result.Length);
+
+            return result.Capacity;
+        }
+
+        private static void TaskNamber2()
+        //Написать метод, который принимает несколько строк (использовать params).
+        //Для каждой строки выполнить индивидуальное задание (в цикле).
+        //Объединить строки в одну, используя разделитель ";" и уменьшить емкость буфера
+        //до реального размера полученной строки. Метод возвращает размер буфера.
+        //Результирующая строка возвращается через параметр out.
+        //16.	удалить все пробелы
+
+        {
+            string result;
+
+            var stringList = new string[] {
+                "Для каждой строки выполнить индивидуальное задание (в цикле).",
+                "Объединить строки в одну, используя разделитель \";\" и уменьшить емкость буфера",
+                "до реального размера полученной строки. Метод возвращает размер буфера."
+            };
+
+            var copacity = RemoveSpaces(stringList, out result);
+
+            Console.WriteLine($"Размер буфера: {copacity}, итоговая строка: {result}");
+        }
+
+        private static int RemoveSpaces(string[] stringList, out string result )
+        {
+            for ( int i = 0; i < stringList.Length; i++ )
+            {
+                stringList[i] = new StringBuilder(stringList[i])
+                    .Replace(" ", string.Empty)
+                    .ToString();
+            }
+
+            var builder = new StringBuilder(string.Join(";", stringList));
+            builder.Capacity = builder.Length;
+
+            result = builder.ToString();
+            return builder.Capacity;
+        }
+
+        private static void TaskNamber3() //Написать метод, решающий поставленную задачу.
+                                          //Типы параметров и результата определить самостоятельно.
+                                          //Использовать регулярные выражения.
+                                          // 16.	Подсчитать количество русских гласных
+        {
+            string text = "Как хороши, как свежи были розы\r\nВ моем саду! Как взор прельщали мой!\r\nКак я молил весенние морозы\r\nНе трогать их холодною рукой!";
+            Console.WriteLine(text);
+            Console.WriteLine("Количество гласных:");
+            Regex regex = new Regex(@"[ауоыиэяюёеАЕЁУЭОЫЯИЮ]");
+            MatchCollection matches = regex.Matches(text);
+            Console.WriteLine(matches.Count);
+        }
+    }
+}
